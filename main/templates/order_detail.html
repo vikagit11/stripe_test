@@ -1,0 +1,62 @@
+
+<html>
+  <head>
+    <title>Заказ #{{ order.id }}</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .buy-btn { 
+            background-color: #6772e5; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            margin-top: 20px;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Заказ  {{ order.id }}</h1>
+    
+    <h3>Товары в корзине:</h3>
+    <ul>
+        {% for item in order.items.all %}
+            <li>{{ item.name }} - {{ item.price }} {{ item.get_currency_display }}</li>
+        {% empty %}
+            <li>В заказе пока нет товаров.</li>
+        {% endfor %}
+    </ul>
+    
+    <hr>
+    
+    {% if order.discount %}
+        <p style="color: green;">
+            <strong>Применена скидка:</strong> {{ order.discount.value }}%
+        </p>
+    {% endif %}
+
+    {% if order.tax %}
+        <p style="color: red;">
+            <strong>Налог:</strong> {{ order.tax.value }}%
+        </p>
+    {% endif %}
+
+    <h3>Базовая стоимость товаров: {{ order.get_total_cost }}</h3>
+
+    <button id="buy-button" class="buy-btn">Оплатить заказ</button>
+
+    <script type="text/javascript">
+      var stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}'); 
+      var buyButton = document.getElementById('buy-button');
+      
+      buyButton.addEventListener('click', function() {
+        fetch('/buy_order/{{ order.id }}/', {method: 'GET'})
+        .then(response => response.json())
+        .then(session => stripe.redirectToCheckout({ sessionId: session.id }))
+        .catch(error => console.error('Error:', error));
+      });
+    </script>
+  </body>
+</html>

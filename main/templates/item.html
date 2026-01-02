@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ item.name }}</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h1>{{ item.name }}</h1>
+    <p>{{ item.description }}</p>
+    <p>Price: {{ item.price }} {{ item.get_currency_display }}</p>
+    
+    <button id="buy-button">Buy</button>
+
+    <script type="text/javascript">
+        // Инициализация Stripe с публичным ключом
+        var stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');
+        var buyButton = document.getElementById('buy-button');
+
+        buyButton.addEventListener('click', function() {
+            //  запрос на бэкенд
+            fetch('/buy/{{ item.id }}/', {
+                method: 'GET'
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(session) {
+                // Редирек на форму оплаты Stripe
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function(result) {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
