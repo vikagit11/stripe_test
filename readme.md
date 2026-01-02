@@ -30,6 +30,7 @@ STRIPE_PUBLIC_KEY=
 STRIPE_SECRET_KEY=
 DJANGO_SECRET_KEY=
 DEBUG=True
+```
 
 3. Запустить проект:
    ```bash 
