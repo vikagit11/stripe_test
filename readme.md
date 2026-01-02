@@ -10,7 +10,7 @@
 *  Контейнеризация приложения(Docker). 
 
 ## 2. Технологии
-* Python3.10+
+* Python3.13
 * Django
 * Stripe API
 * Sqlite3
@@ -19,50 +19,50 @@
 ## 3. Запуск проекта
 * через Docker
 
-   1. Клонировать репозиторий:
+1. Клонировать репозиторий:
    ```bash
    git clone https://github.com/vikagit11/stripe_test
    cd stripe_test
    ```
-   2. Создать файл с переменными окружения: файл .env в корне проекта и добавить туда  ключи:
+2. Создать файл с переменными окружения: файл .env в корне проекта и добавить туда  ключи:
 
    STRIPE_PUBLIC_KEY
    STRIPE_SECRET_KEY
    DJANGO_SECRET_KEY
    DEBUG
 
-   3. Запустить проект:
+3. Запустить проект:
    ```bash 
     docker-compose up --build
     ```
-   4. Создать суперпользователя:
+4. Создать суперпользователя:
    ```bash
     docker-compose exec web python manage.py migrate
     docker-compose exec web python manage.py createsuperuser
     ```
-   5. Открыть админку: http://127.0.0.1:8000/admin/
+5. Открыть админку: http://127.0.0.1:8000/admin/
 
 * локально
 
-   1. Создать и активировать виртуальное окружение:
+1. Создать и активировать виртуальное окружение:
    ```bash
    python -m venv venv
    # Windows: venv\Scripts\activate
    # Mac/Linux: source venv/bin/activate
    ```
 
-   2. Установить зависимости: 
+2. Установить зависимости: 
    ```bash 
    pip install -r requirements.txt
    ```
-   3. Настроить .env
-   4. Применить миграции и запустить сервер:
+3. Настроить .env
+4. Применить миграции и запустить сервер:
    ```bash                         
    python manage.py migrate
    python manage.py runserver 
    ```
-      Сервер запуститься: http://127.0.0.1:8000/
-   5. Создать суперпользователя: 
+      Сервер запустится: http://127.0.0.1:8000/
+5. Создать суперпользователя: 
    ```bash 
    python manage.py createsuperuser
    ```
