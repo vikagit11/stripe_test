@@ -25,11 +25,11 @@
    cd stripe_test
    ```
 2. Создать файл с переменными окружения: файл .env в корне проекта и добавить туда  ключи:
-
-   STRIPE_PUBLIC_KEY
-   STRIPE_SECRET_KEY
-   DJANGO_SECRET_KEY
-   DEBUG
+```text
+STRIPE_PUBLIC_KEY=
+STRIPE_SECRET_KEY=
+DJANGO_SECRET_KEY=
+DEBUG=True
 
 3. Запустить проект:
    ```bash 
