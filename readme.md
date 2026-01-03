@@ -5,8 +5,8 @@
 **Сайт онлайн:**  https://stripetest-production-68a7.up.railway.app
 
 **Доступ к админке:**
-Логин: admin
-Пароль admin123
+Логин: `admin`
+Пароль: `admin123`
 
 
 ## 1. Функционал
